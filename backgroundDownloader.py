@@ -7,6 +7,8 @@ import sys
 outputDir = None
 try:
     outputDir = os.path.abspath (sys.argv[1])
+    if not os.path.exists (outputDir):
+        os.makedirs (outputDir)
 except:
     raise Exception ("OUTPUT DIRECTORY IS NOT DEFINED IN INPUT PARAMETERS")
 
@@ -42,9 +44,8 @@ if __name__ == '__main__':
     try:
         for index, link in enumerate (urlList):
             print (str (index + 1) + "/" + str (len (urlList)) + ": " + link)
-            # TODO: make sure folder path exists before doing this
             # downloadImage (link, os.path.join ("C:", os.sep, "Users", os.getlogin (), "Pictures", "TheoTown Gallery", "popular_background" + str (index + 1) + ".png"))
-            downloadImage (link, outputDir)
+            downloadImage (link, os.path.join (outputDir, "popular_background" + str (index + 1) + ".png"))
 
     except:
         raise Exception ("ENSURE THAT THE DIRECTORY IS VALID AND NOT HIDDEN BY THE FILESYSTEM")
